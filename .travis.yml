@@ -1,0 +1,18 @@
+
+language: node_js
+node_js:
+  - 'node'
+  - '8'
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+install:
+- npm install
+scripts:
+- npm test
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+global:
+  cc_test_reporter_id:
+    secure: "bbc55dc5648af9bee0cd9f9346a27127ec219ccccdb9410e09fd6f50fff64e92"
