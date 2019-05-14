@@ -46,7 +46,6 @@
 		"@babel/preset-env": "^7.2.0",
 		"@babel/register": "^7.0.0",
 		"@natlibfi/fixura": "^1.0.0",
-		"@natlibfi/fixura-mongo": "^1.0.0",
 		"babel-eslint": "^10.0.1",
 		"babel-plugin-rewire": "^1.2.0",
 		"babel-plugin-istanbul": "^5.1.0",
