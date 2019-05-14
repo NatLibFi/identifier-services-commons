@@ -19,9 +19,6 @@
 	"engines": {
 		"node": ">=8"
 	},
-	"bin": {
-		"healthz": "./dist/health-check.js"
-	},
 	"publishConfig": {
 		"access": "public"
 	},
@@ -67,54 +64,54 @@
 	"eslintConfig": {
 		"parser": "babel-eslint",
 		"plugins": [
-		  "import"
+			"import"
 		],
 		"extends": [
-		  "xo",
-		  "plugin:import/errors"
+			"xo",
+			"plugin:import/errors"
 		],
 		"rules": {
-		  "prefer-arrow-callback": [
-			"error"
-		  ]
+			"prefer-arrow-callback": [
+				"error"
+			]
 		},
 		"env": {
-		  "mocha": true
+			"mocha": true
 		}
-	  },
-	  "babel": {
+	},
+	"babel": {
 		"presets": [
-		  [
-			"@babel/preset-env",
-			{
-			  "targets": {
-				"node": "8"
-			  }
-			}
-		  ]
+			[
+				"@babel/preset-env",
+				{
+					"targets": {
+						"node": "8"
+					}
+				}
+			]
 		],
 		"env": {
-		  "test": {
-			"plugins": [
-			  "istanbul",
-			  "rewire"
-			]
-		  }
+			"test": {
+				"plugins": [
+					"istanbul",
+					"rewire"
+				]
+			}
 		}
-	  },
-	  "nyc": {
+	},
+	"nyc": {
 		"include": [
-		  "src/interfaces/*.js"
+			"src/interfaces/*.js"
 		],
 		"exclude": [
-		  "**/*.spec.js"
+			"**/*.spec.js"
 		],
 		"reporter": [
-		  "lcov",
-		  "html"
+			"lcov",
+			"html"
 		],
 		"require": [
-		  "@babel/register"
+			"@babel/register"
 		],
 		"sourceMap": false,
 		"instrument": false,
@@ -122,5 +119,5 @@
 		"statements": 80,
 		"functions": 80,
 		"branches": 80
-	  }
+	}
 }
