@@ -25,5 +25,9 @@
 * for the JavaScript code in this file.
 *
 */
-
-export * from './error';
+export class ApiError extends Error {
+	constructor(status, ...params) {
+		super(status, ...params);
+		this.status = status;
+	}
+}
