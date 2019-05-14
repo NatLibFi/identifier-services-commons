@@ -32,6 +32,7 @@
 		"test:base": "cross-env NODE_ENV=test nyc mocha -t 20000 --exit --require @babel/register",
 		"test": "npm run lint && npm run test:base -- src/**/*.spec.js && npm run coverage",
 		"coverage": "nyc check-coverage --per-file",
+		"prepare": "npm run build",
 		"build": "babel src --source-maps --delete-dir-on-start --out-dir=dist",
 		"build:dev": "npm run build && npm run check-deps",
 		"watch:test": "cross-env DEBUG=1 NODE_ENV=test nodemon -w src --exec 'npm test'"
