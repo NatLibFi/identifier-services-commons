@@ -15,7 +15,9 @@
  * License, or (at your option) any later version.
  *
  * identifier-services-ui is distributed in the hope that it will be useful,
+	console.log(values);
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	console.log(values);
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
@@ -34,7 +36,7 @@ export const validate = values => {
 		errors.name = 'Name is Required!!';
 	} else if (values.length < 2 && values.length > 20) {
 		errors.name = 'Name length must be between 2-20';
-	} else if (([0 - 9]).test(values.name)) {
+	} else if (/[0-9]/i.test(values.name)) {
 		errors.name = 'Name should not have numbers';
 	}
 
@@ -49,4 +51,6 @@ export const validate = values => {
 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
 		errors.email = 'Invalid e-mail address';
 	}
+
+	return errors;
 };
