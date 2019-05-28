@@ -48,8 +48,23 @@ export const validate = values => {
 
 	if (!values.publisherEmail) {
 		errors.publisherEmail = 'Publisher\'s Email is required';
-	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
 		errors.email = 'Invalid e-mail address';
+	}
+
+	if (!values.publicationEstimate) {
+		errors.publicationEstimate = 'This Field cannot be left empty!!';
+	} else if (!/[0-9]/i.test(values.publicationEstimate)) {
+		errors.publicationEstimate = 'Numbers only!!!';
+	}
+
+	if (!values.website) {
+		errors.website = 'The Field cannot be left empty';
+	}
+
+	console.log(values);
+	if (values.aliases === {}) {
+		errors.aliases = 'Aliases cannot be empty';
 	}
 
 	return errors;
