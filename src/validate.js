@@ -29,9 +29,10 @@
  *
  */
 
-export const validate = values => {
-	const errors = {};
+/* eslint-disable no-unused-expressions */
 
+export function validate(values) {
+	const errors = {};
 	if (!values.name) {
 		errors.name = 'Name is Required!!';
 	} else if (values.length < 2 && values.length > 20) {
@@ -40,32 +41,10 @@ export const validate = values => {
 		errors.name = 'Name should not have numbers';
 	}
 
-	if (!values.givenName) {
-		errors.givenName = 'Given Name is Required!!';
-	} else if (values.length < 2 && values.length > 20) {
-		errors.givenName = 'Given Name length must be between 2-20';
-	} else if (/[0-9]/i.test(values.givenName)) {
-		errors.givenName = 'Given Name should not have numbers';
-	}
-
-	if (!values.familyName) {
-		errors.familyName = 'Family Name is Required!!';
-	} else if (values.length < 2 && values.length > 20) {
-		errors.familyName = 'Family Name length must be between 2-20';
-	} else if (/[0-9]/i.test(values.familyName)) {
-		errors.familyName = 'Family Name should not have numbers';
-	}
-
-	if (!values.email) {
-		errors.email = 'Email is Required!!!';
-	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-		errors.email = 'Invalid e-mail address';
-	}
-
 	if (!values.publisherEmail) {
 		errors.publisherEmail = 'Publisher\'s Email is required';
 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
-		errors.email = 'Invalid e-mail address';
+		errors.publisherEmail = 'Invalid e-mail address';
 	}
 
 	if (!values.publicationEstimate) {
@@ -78,27 +57,78 @@ export const validate = values => {
 		errors.website = 'The Field cannot be left empty';
 	}
 
-	if (values.aliases === {}) {
-		errors.aliases = 'Aliases cannot be empty';
+	if (!values.aliases || !values.aliases.length) {
+		errors.aliases = {_error: 'At least one member must be entered'};
+	} else {
+		const aliasesArrayErrors = [];
+		values.aliases.forEach((item, index) => {
+			if (!item) {
+				aliasesArrayErrors[index] = 'Aliases Required';
+			}
+		});
+		if (aliasesArrayErrors.length) {
+			errors.aliases = aliasesArrayErrors;
+		}
+	}
+
+	if (!values.contactDetails || !values.contactDetails.length) {
+		errors.contactDetails = {_error: 'Contact Details need to be provided'};
+	} else {
+		const contactDetailsErrors = [];
+		values.contactDetails.forEach((item, index) => {
+			const contactFieldsErrors = {};
+			if (!item || !item.givenName) {
+				contactFieldsErrors.givenName = 'Required';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			} else if (item.givenName.length < 2 || item.givenName.length > 20) {
+				contactFieldsErrors.givenName = 'Given Name length must be between 2-20';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			} else if (/[0-9]/i.test(item.givenName)) {
+				contactFieldsErrors.givenName = 'Given Name should not have numbers';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			}
+
+			if (!item || !item.familyName) {
+				contactFieldsErrors.familyName = 'Required';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			} else if (item.familyName.length < 2 || item.familyName.length > 20) {
+				contactFieldsErrors.familyName = 'Family Name length must be between 2-20';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			} else if (/[0-9]/i.test(item.familyName)) {
+				contactFieldsErrors.familyName = 'Family Name should not have numbers';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			}
+
+			if (!item || !item.email) {
+				contactFieldsErrors.email = 'Required';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(item.email)) {
+				contactFieldsErrors.email = 'Invalid e-mail address';
+				contactDetailsErrors[index] = contactFieldsErrors;
+			}
+		});
+		if (contactDetailsErrors.length) {
+			errors.contactDetails = contactDetailsErrors;
+		}
 	}
 
 	if (!values.streetAddress) {
 		errors.streetAddress = 'Street Address cannot be empty.';
-	} else if (values.streetAddress.lenght < 2) {
+	} else if (values.streetAddress.length < 2) {
 		errors.streetAddress = 'Value must be between more than 2 characters';
 	}
 
 	if (!values.city) {
 		errors.city = 'Please specify a city';
-	} else if (values.city.lenght < 2) {
+	} else if (values.city.length < 2) {
 		errors.city = 'Value must be between more than 2 characters';
 	}
 
 	if (!values.zip) {
 		errors.zip = 'Zip code cannot be empty';
 	} else if (!/[0-9]/i.test(values.zip)) {
-		errors.streetAddress = 'Value must be numbers';
+		errors.zip = 'Value must be numbers';
 	}
 
 	return errors;
-};
+}
