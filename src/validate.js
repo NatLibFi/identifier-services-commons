@@ -39,9 +39,7 @@ export function validate(values) {
 		errors.name = 'Name should contains only 3-20 alphabets';
 	}
 
-	if (!values.publisherEmail) {
-		errors.publisherEmail = 'Publisher\'s Email is required';
-	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
+	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
 		errors.publisherEmail = 'Invalid e-mail address';
 	}
 
@@ -51,13 +49,9 @@ export function validate(values) {
 		errors.publicationEstimate = 'Numbers only!!!';
 	}
 
-	if (!values.website) {
-		errors.website = 'The Field cannot be left empty';
-	}
-
-	if (!values.aliases || !values.aliases.length) {
-		errors.aliases = {_error: 'At least one member must be enter'};
-	}
+	// if (!values.website) {
+	// 	errors.website = 'The Field cannot be left empty';
+	// }
 
 	if (values.contactDetails && values.contactDetails.length > 0) {
 		// ValidateContact();
