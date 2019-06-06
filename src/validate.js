@@ -41,7 +41,7 @@ export function validate(values) {
 
 	if (!values.username) {
 		errors.username = 'Name is Required!!';
-	} else if (!/^[a-zA-Z\s]{3,20}$/i.test(values.username)) {
+	} else if (!/^[a-zA-Z]{3,20}$/i.test(values.username)) {
 		errors.username = 'Name should contains only 3-20 alphabets';
 	}
 
