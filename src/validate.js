@@ -39,6 +39,16 @@ export function validate(values) {
 		errors.name = 'Name should contains only 3-20 alphabets';
 	}
 
+	if (!values.username) {
+		errors.username = 'Name is Required!!';
+	} else if (!/^[a-zA-Z\s]{3,20}$/i.test(values.username)) {
+		errors.username = 'Name should contains only 3-20 alphabets';
+	}
+
+	if (!values.password) {
+		errors.password = 'Password Required';
+	}
+
 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
 		errors.publisherEmail = 'Invalid e-mail address';
 	}
@@ -49,7 +59,7 @@ export function validate(values) {
 		errors.publicationEstimate = 'Numbers only!!!';
 	}
 
-	// if (!values.website) {
+	// If (!values.website) {
 	// 	errors.website = 'The Field cannot be left empty';
 	// }
 
