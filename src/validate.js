@@ -63,11 +63,11 @@ export function validate(values) {
 	// 	errors.website = 'The Field cannot be left empty';
 	// }
 
-	if (values.contactDetails && values.contactDetails.length > 0) {
+	if (values.primaryContact && values.primaryContact.length > 0) {
 		// ValidateContact();
 	} else {
 		validateContact();
-		errors.contactDetails = {_error: 'At least one member must be enter'};
+		errors.primaryContact = {_error: 'At least one member must be enter'};
 	}
 
 	function validateContact() {
