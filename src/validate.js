@@ -90,10 +90,10 @@ export function validate(values) {
 		}
 	}
 
-	if (!values.streetAddress) {
-		errors.streetAddress = 'Required';
-	} else if (!/\w{2,}/i.test(values.streetAddress)) {
-		errors.streetAddress = 'Value must be between more than 2 characters';
+	if (!values.address) {
+		errors.address = 'Required';
+	} else if (!/\w{2,}/i.test(values.address)) {
+		errors.address = 'Value must be between more than 2 characters';
 	}
 
 	if (!values.city) {
