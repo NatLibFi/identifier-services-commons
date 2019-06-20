@@ -41,9 +41,9 @@ import {
 export function generatePassportMiddlewares({crowd, localUsers}) {
 	// Const logger  = createLogger();
 
-	if (crowd.url && crowd.appName && crowd.appPassword) {
-		return initCrowdMiddlewares();
-	}
+	// if (crowd.url && crowd.appName && crowd.appPassword) {
+	// 	return initCrowdMiddlewares();
+	// }
 
 	if (typeof localUsers === 'string') {
 		return initLocalMiddlewares();
@@ -58,7 +58,7 @@ export function generatePassportMiddlewares({crowd, localUsers}) {
 			useCache: crowd.useCache, fetchGroupMembership: crowd.fetchGroupMembership
 		}));
 
-		logger.log('info', 'Enabling Crowd passport strategies');
+		// logger.log('info', 'Enabling Crowd passport strategies');
 
 		return {
 			credentials: passport.authenticate('atlassian-crowd-bearer-credentials', {session: false}),
@@ -73,7 +73,7 @@ export function generatePassportMiddlewares({crowd, localUsers}) {
 		passport.use(new BasicStrategy(localBasicCallback));
 		passport.use(new BearerStrategy(localBearerCallback));
 
-		logger.log('info', 'Enabling local passport strategies');
+		// logger.log('info', 'Enabling local passport strategies');
 
 		return {
 			credentials: passport.authenticate('basic', {session: false}),
