@@ -84,7 +84,7 @@ export function generatePassportMiddlewares({crowd, localUsers}) {
 			if (localUsers.startsWith('file://')) {
 				const str = readFileSync(localUsers.replace(/^file:\/\//, ''), 'utf8');
 				console.log(str);
-				// return parse(str);
+				return parse(str);
 			}
 
 			return parse(localUsers);
