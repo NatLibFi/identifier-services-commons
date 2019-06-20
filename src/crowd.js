@@ -27,7 +27,7 @@
  * for the JavaScript code in this file.
  *
  */
-import {readFileSync} from 'fs',
+import {readFileSync} from 'fs';
 import passport from 'passport';
 import uuid from 'uuid/v4';
 import {Strategy as BearerStrategy} from 'passport-http-bearer';
