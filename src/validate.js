@@ -1,4 +1,12 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+exports.validate = validate;
+
 /* eslint-disable complexity */
+
 /**
  *
  * @licstart  The following is the entire license notice for the JavaScript code in this file.
@@ -30,9 +38,9 @@
  */
 
 /* eslint-disable no-unused-expressions */
-
-export function validate(values) {
+function validate(values) {
 	const errors = {};
+
 	if (!values.name) {
 		errors.name = 'Name is Required!!';
 	} else if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
@@ -57,17 +65,16 @@ export function validate(values) {
 		errors.publicationEstimate = 'This Field cannot be left empty!!';
 	} else if (!/[0-9]/i.test(values.publicationEstimate)) {
 		errors.publicationEstimate = 'Numbers only!!!';
-	}
-
-	// If (!values.website) {
+	} // If (!values.website) {
 	// 	errors.website = 'The Field cannot be left empty';
 	// }
 
-	if (values.primaryContact && values.primaryContact.length > 0) {
-		// ValidateContact();
+	if (values.contactDetails && values.contactDetails.length > 0) {// ValidateContact();
 	} else {
 		validateContact();
-		errors.primaryContact = {_error: 'At least one member must be enter'};
+		errors.contactDetails = {
+			_error: 'At least one member must be enter'
+		};
 	}
 
 	function validateContact() {
@@ -90,10 +97,10 @@ export function validate(values) {
 		}
 	}
 
-	if (!values.address) {
-		errors.address = 'Required';
-	} else if (!/\w{2,}/i.test(values.address)) {
-		errors.address = 'Value must be between more than 2 characters';
+	if (!values.streetAddress) {
+		errors.streetAddress = 'Required';
+	} else if (!/\w{2,}/i.test(values.streetAddress)) {
+		errors.streetAddress = 'Value must be between more than 2 characters';
 	}
 
 	if (!values.city) {
@@ -110,3 +117,4 @@ export function validate(values) {
 
 	return errors;
 }
+// # sourceMappingURL=validate.js.map
