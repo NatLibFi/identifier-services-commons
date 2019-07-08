@@ -1,11 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
-exports.validate = validate;
-
-/* eslint-disable complexity */
 
 /**
  *
@@ -23,9 +15,9 @@ exports.validate = validate;
  * License, or (at your option) any later version.
  *
  * identifier-services-ui is distributed in the hope that it will be useful,
-	console.log(values);
+    console.log(values);
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	console.log(values);
+    console.log(values);
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
@@ -36,25 +28,18 @@ exports.validate = validate;
  * for the JavaScript code in this file.
  *
  */
+'use strict';
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+exports.validate = validate;
 
-/* eslint-disable no-unused-expressions */
 function validate(values) {
 	const errors = {};
-
 	if (!values.name) {
 		errors.name = 'Name is Required!!';
 	} else if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
 		errors.name = 'Name should contains only 3-20 alphabets';
-	}
-
-	if (!values.username) {
-		errors.username = 'Name is Required!!';
-	} else if (!/^[a-zA-Z]{3,20}$/i.test(values.username)) {
-		errors.username = 'Name should contains only 3-20 alphabets';
-	}
-
-	if (!values.password) {
-		errors.password = 'Password Required';
 	}
 
 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
@@ -65,9 +50,7 @@ function validate(values) {
 		errors.publicationEstimate = 'This Field cannot be left empty!!';
 	} else if (!/[0-9]/i.test(values.publicationEstimate)) {
 		errors.publicationEstimate = 'Numbers only!!!';
-	} // If (!values.website) {
-	// 	errors.website = 'The Field cannot be left empty';
-	// }
+	}
 
 	if (values.contactDetails && values.contactDetails.length > 0) {// ValidateContact();
 	} else {
@@ -115,6 +98,19 @@ function validate(values) {
 		errors.zip = 'Value must be numbers';
 	}
 
+	if (values.role && values.role.length > 0) {
+	} else {
+		errors.role = {
+			_error: 'At least one role must be chosen'
+		};
+	}
+
+	if (values.emails && values.emails.length > 0) {
+	} else {
+		errors.emails = {
+			_error: 'At least one email must be enter'
+		};
+	}
+
 	return errors;
 }
-// # sourceMappingURL=validate.js.map
