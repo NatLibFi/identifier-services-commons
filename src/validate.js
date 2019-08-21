@@ -61,18 +61,6 @@ function validate(values) {
 	}
 
 	function validateContact() {
-		// if (!values.givenName) {
-		// 	errors.givenName = 'Required';
-		// } else if (!/^[a-zA-Z]{3,20}$/i.test(values.givenName)) {
-		// 	errors.givenName = '3-20 Alphabets Only';
-		// }
-
-		if (!values.familyName) {
-			errors.familyName = 'Required';
-		} else if (!/^[a-zA-Z]{3,20}$/i.test(values.familyName)) {
-			errors.familyName = '3-20 Alphabets Only';
-		}
-
 		if (!values.email) {
 			errors.email = 'Required';
 		} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
