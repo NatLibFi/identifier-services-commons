@@ -61,11 +61,11 @@ function validate(values) {
 	}
 
 	function validateContact() {
-		if (!values.givenName) {
-			errors.givenName = 'Required';
-		} else if (!/^[a-zA-Z]{3,20}$/i.test(values.givenName)) {
-			errors.givenName = '3-20 Alphabets Only';
-		}
+		// if (!values.givenName) {
+		// 	errors.givenName = 'Required';
+		// } else if (!/^[a-zA-Z]{3,20}$/i.test(values.givenName)) {
+		// 	errors.givenName = '3-20 Alphabets Only';
+		// }
 
 		if (!values.familyName) {
 			errors.familyName = 'Required';
