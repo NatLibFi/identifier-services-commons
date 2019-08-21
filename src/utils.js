@@ -27,6 +27,8 @@
  * for the JavaScript code in this file.
  *
  */
+import { logger } from './logger';
+
 
 export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
 	if (process.env[name] === undefined) {
@@ -46,3 +48,21 @@ export function readEnvironmentVariable(name, {defaultValue = undefined, hideDef
 export function clone(o) {
 	return JSON.parse(JSON.stringify(o));
 }
+
+const whitelist = JSON.parse(readEnvironmentVariable('CORS_WHITELIST', '["http://localhost:3000"]'));
+
+export const corsOptions = {
+	origin: function (origin, callback) {
+		if (origin === undefined) {
+			callback(null, true);
+		} else {
+			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+			if (!originIsWhitelisted) {
+				logger.log('info', `Request from origin ${origin} is not whitelisted.`);
+			}
+
+			callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
+		}
+	},
+	credentials: true
+};
