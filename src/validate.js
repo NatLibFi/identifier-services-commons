@@ -42,79 +42,93 @@ function validate(values) {
     distributorOf: {},
     distributor: {}
   };
-  const { publicationDetails = {} } = values;
-  const { postalAddress = {} } = values;
-  const { affiliateOf = {} } = values;
-  const { distributorOf = {} } = values;
-  const { distributor = {} } = values;
-
-
-  const requiredFields = [
-    'name',
-    'publisherEmail'
-  ];
-
-
+  const {
+    publicationDetails = {}
+  } = values;
+  const {
+    postalAddress = {}
+  } = values;
+  const {
+    affiliateOf = {}
+  } = values;
+  const {
+    distributorOf = {}
+  } = values;
+  const {
+    distributor = {}
+  } = values;
+  const requiredFields = ['name', 'publisherEmail'];
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = 'Required';
     }
-  })
+  });
 
-
-  if(!publicationDetails.frequency){
-    errors.publicationDetails.frequency = 'Required'
-  } else if(!/[0-9]/i.test(publicationDetails.frequency)){
-    errors.publicationDetails.frequency = 'Must be a number'
-  }
-
-  if(!postalAddress.address){
-    errors.postalAddress.address = 'Required'
-  }
-  if(!postalAddress.city){
-    errors.postalAddress.city = 'Required'
-  }
-  if(!postalAddress.zip){
-    errors.postalAddress.zip = 'Required'
+  if (!publicationDetails.frequency) {
+    errors.publicationDetails.frequency = 'Required';
+  } else if (!/[0-9]/i.test(publicationDetails.frequency)) {
+    errors.publicationDetails.frequency = 'Must be a number';
   }
 
-  if(!affiliateOf.affiliateOfAddress){
-    errors.affiliateOf.affiliateOfAddress = 'Required'
-  }
-  if(!affiliateOf.affiliateOfCity){
-    errors.affiliateOf.affiliateOfCity = 'Required'
-  }
-  if(!affiliateOf.affiliateOfZip){
-    errors.affiliateOf.affiliateOfZip = 'Required'
-  }
-  if(!affiliateOf.affiliateOfName){
-    errors.affiliateOf.affiliateOfName = 'Required'
-  }
-  if(!distributorOf.distributorOfAddress){
-    errors.distributorOf.distributorOfAddress = 'Required'
-  }
-  if(!distributorOf.distributorOfCity){
-    errors.distributorOf.distributorOfCity = 'Required'
-  }
-  if(!distributorOf.distributorOfZip){
-    errors.distributorOf.distributorOfZip = 'Required'
-  }
-  if(!distributorOf.distributorOfName){
-    errors.distributorOf.distributorOfName = 'Required'
-  }
-  if(!distributor.distributorAddress){
-    errors.distributor.distributorAddress = 'Required'
-  }
-  if(!distributor.distributorCity){
-    errors.distributor.distributorCity = 'Required'
-  }
-  if(!distributor.distributorZip){
-    errors.distributor.distributorZip = 'Required'
-  }
-  if(!distributor.distributorName){
-    errors.distributor.distributorName = 'Required'
+  if (!postalAddress.address) {
+    errors.postalAddress.address = 'Required';
   }
 
+  if (!postalAddress.city) {
+    errors.postalAddress.city = 'Required';
+  }
+
+  if (!postalAddress.zip) {
+    errors.postalAddress.zip = 'Required';
+  }
+
+  if (!affiliateOf.affiliateOfAddress) {
+    errors.affiliateOf.affiliateOfAddress = 'Required';
+  }
+
+  if (!affiliateOf.affiliateOfCity) {
+    errors.affiliateOf.affiliateOfCity = 'Required';
+  }
+
+  if (!affiliateOf.affiliateOfZip) {
+    errors.affiliateOf.affiliateOfZip = 'Required';
+  }
+
+  if (!affiliateOf.affiliateOfName) {
+    errors.affiliateOf.affiliateOfName = 'Required';
+  }
+
+  if (!distributorOf.distributorOfAddress) {
+    errors.distributorOf.distributorOfAddress = 'Required';
+  }
+
+  if (!distributorOf.distributorOfCity) {
+    errors.distributorOf.distributorOfCity = 'Required';
+  }
+
+  if (!distributorOf.distributorOfZip) {
+    errors.distributorOf.distributorOfZip = 'Required';
+  }
+
+  if (!distributorOf.distributorOfName) {
+    errors.distributorOf.distributorOfName = 'Required';
+  }
+
+  if (!distributor.distributorAddress) {
+    errors.distributor.distributorAddress = 'Required';
+  }
+
+  if (!distributor.distributorCity) {
+    errors.distributor.distributorCity = 'Required';
+  }
+
+  if (!distributor.distributorZip) {
+    errors.distributor.distributorZip = 'Required';
+  }
+
+  if (!distributor.distributorName) {
+    errors.distributor.distributorName = 'Required';
+  }
 
   if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
     errors.name = 'Name should contains only 3-20 alphabets';
@@ -124,9 +138,9 @@ function validate(values) {
     errors.publisherEmail = 'Invalid e-mail address';
   }
 
-  if (values.contactDetails && values.contactDetails.length > 0) {} else {
+  if (values.primaryContact && values.primaryContact.length > 0) {} else {
     validateContact();
-    errors.contactDetails = {
+    errors.primaryContact = {
       _error: 'At least one member must be enter'
     };
   }
@@ -168,6 +182,7 @@ function validate(values) {
       _error: 'At least one classification code must be enter'
     };
   }
+
   if (values.affiliates && values.affiliates.length > 0) {} else {
     validateAffiliate();
     errors.affiliates = {
@@ -179,12 +194,15 @@ function validate(values) {
     if (!values.affiliatesAddress) {
       errors.affiliatesAddress = 'Required';
     }
+
     if (!values.affiliatesCity) {
       errors.affiliatesCity = 'Required';
     }
+
     if (!values.affiliatesZip) {
       errors.affiliatesZip = 'Required';
     }
+
     if (!values.affiliatesName) {
       errors.affiliatesName = 'Required';
     }
