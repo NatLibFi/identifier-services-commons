@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+
 /**
  *
  * @licstart  The following is the entire license notice for the JavaScript code in this file.
@@ -57,7 +59,7 @@ function validate(values) {
   const {
     distributor = {}
   } = values;
-  const requiredFields = ['name', 'publisherEmail'];
+  const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'type', 'authorGivenName', 'authorFamilyName'];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
@@ -68,6 +70,10 @@ function validate(values) {
     errors.publicationDetails.frequency = 'Required';
   } else if (!/[0-9]/i.test(publicationDetails.frequency)) {
     errors.publicationDetails.frequency = 'Must be a number';
+  }
+
+  if(isNaN(Date.parse(values.publicationTime))){
+    errors.publicationTime = 'Not Valid date'
   }
 
   if (!postalAddress.address) {
@@ -81,7 +87,6 @@ function validate(values) {
   if (!postalAddress.zip) {
     errors.postalAddress.zip = 'Required';
   }
-
   if (!affiliateOf.affiliateOfAddress) {
     errors.affiliateOf.affiliateOfAddress = 'Required';
   }
@@ -130,6 +135,7 @@ function validate(values) {
     errors.distributor.distributorName = 'Required';
   }
 
+
   if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
     errors.name = 'Name should contains only 3-20 alphabets';
   }
@@ -138,7 +144,8 @@ function validate(values) {
     errors.publisherEmail = 'Invalid e-mail address';
   }
 
-  if (values.primaryContact && values.primaryContact.length > 0) {} else {
+  if (values.primaryContact && values.primaryContact.length > 0) {
+  } else {
     validateContact();
     errors.primaryContact = {
       _error: 'At least one member must be enter'
@@ -165,29 +172,32 @@ function validate(values) {
     errors.zip = 'Value must be numbers';
   }
 
-  if (values.role && values.role.length > 0) {} else {
-    errors.role = {
-      _error: 'At least one role must be chosen'
-    };
+  if (values.role && values.role.length > 0) {
+    return;
   }
 
-  if (values.emails && values.emails.length > 0) {} else {
-    errors.emails = {
-      _error: 'At least one email must be enter'
-    };
+  errors.role = {
+    _error: 'At least one role must be chosen'
+  };
+
+  if (values.emails && values.emails.length > 0) {
+    return;
   }
 
-  if (values.classification && values.classification.length > 0) {} else {
-    errors.classification = {
-      _error: 'At least one classification code must be enter'
-    };
+  errors.emails = {
+    _error: 'At least one email must be enter'
+  };
+
+  if (!values.classification) {
+    errors.classification = 'Required';;
   }
+
 
   if (values.affiliates && values.affiliates.length > 0) {} else {
     validateAffiliate();
     errors.affiliates = {
       _error: 'At least one affiliate must be enter'
-    };
+    }
   }
 
   function validateAffiliate() {
@@ -209,5 +219,5 @@ function validate(values) {
   }
 
   return errors;
-}
+} // # sourceMappingURL=validate.js.map
 //# sourceMappingURL=validate.js.map
