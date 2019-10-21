@@ -32,45 +32,45 @@ import nodemailer from 'nodemailer';
 import stringTemplate from 'string-template-js';
 import {URL} from 'url';
 
-import {logger} from './logger';
+// import {logger} from './logger';
 import {SMTP_URL, API_EMAIL} from './config';
 
-export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
-	if (process.env[name] === undefined) {
-		if (defaultValue === undefined) {
-			throw new Error(`Mandatory environment variable missing: ${name}`);
-		}
+// export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
+// 	if (process.env[name] === undefined) {
+// 		if (defaultValue === undefined) {
+// 			throw new Error(`Mandatory environment variable missing: ${name}`);
+// 		}
 
-		const defaultValuePrintable = typeof defaultValue === 'object' ? JSON.stringify(defaultValue) : defaultValue;
+// 		const defaultValuePrintable = typeof defaultValue === 'object' ? JSON.stringify(defaultValue) : defaultValue;
 
-		console.error(`No environment variable set for ${name}, using default value: ${hideDefault ? '[hidden]' : defaultValuePrintable}`);
-		return defaultValue;
-	}
+// 		console.error(`No environment variable set for ${name}, using default value: ${hideDefault ? '[hidden]' : defaultValuePrintable}`);
+// 		return defaultValue;
+// 	}
 
-	return format(process.env[name]);
-}
+// 	return format(process.env[name]);
+// }
 
-export function clone(o) {
-	return JSON.parse(JSON.stringify(o));
-}
+// export function clone(o) {
+// 	return JSON.parse(JSON.stringify(o));
+// }
 
-const whitelist = JSON.parse(readEnvironmentVariable('CORS_WHITELIST', '["http://localhost:3000"]'));
+// const whitelist = JSON.parse(readEnvironmentVariable('CORS_WHITELIST', '["http://localhost:3000"]'));
 
-export const corsOptions = {
-	origin: function (origin, callback) {
-		if (origin === undefined) {
-			callback(null, true);
-		} else {
-			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-			if (!originIsWhitelisted) {
-				logger.log('info', `Request from origin ${origin} is not whitelisted.`);
-			}
+// export const corsOptions = {
+// 	origin: function (origin, callback) {
+// 		if (origin === undefined) {
+// 			callback(null, true);
+// 		} else {
+// 			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+// 			if (!originIsWhitelisted) {
+// 				logger.log('info', `Request from origin ${origin} is not whitelisted.`);
+// 			}
 
-			callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
-		}
-	},
-	credentials: true
-};
+// 			callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
+// 		}
+// 	},
+// 	credentials: true
+// };
 
 export async function sendEmail(name, args, getTemplate) {
 	const parseUrl = new URL(SMTP_URL);
