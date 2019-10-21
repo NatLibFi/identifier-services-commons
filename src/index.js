@@ -28,3 +28,5 @@
 
 export * from './error';
 export * from './validate';
+export * from './api-client';
+export * from './utils';
