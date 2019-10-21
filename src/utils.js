@@ -36,6 +36,11 @@ import {URL} from 'url';
 
 const logger = createLogger();
 
+export function generateAuthorizationHeader(username, password = '') {
+	const encoded = Buffer.from(`${username}:${password}`).toString('base64');
+	return `Basic ${encoded}`;
+}
+
 export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
 	if (process.env[name] === undefined) {
 		if (defaultValue === undefined) {
