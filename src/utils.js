@@ -32,29 +32,31 @@ import nodemailer from 'nodemailer';
 import stringTemplate from 'string-template-js';
 import {URL} from 'url';
 
-// import {logger} from './logger';
+import {createLogger} from './logger';
 import {SMTP_URL, API_EMAIL} from './config';
 
-// export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
-// 	if (process.env[name] === undefined) {
-// 		if (defaultValue === undefined) {
-// 			throw new Error(`Mandatory environment variable missing: ${name}`);
-// 		}
+const logger = createLogger();
 
-// 		const defaultValuePrintable = typeof defaultValue === 'object' ? JSON.stringify(defaultValue) : defaultValue;
+export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
+	if (process.env[name] === undefined) {
+		if (defaultValue === undefined) {
+			throw new Error(`Mandatory environment variable missing: ${name}`);
+		}
 
-// 		console.error(`No environment variable set for ${name}, using default value: ${hideDefault ? '[hidden]' : defaultValuePrintable}`);
-// 		return defaultValue;
-// 	}
+		const defaultValuePrintable = typeof defaultValue === 'object' ? JSON.stringify(defaultValue) : defaultValue;
 
-// 	return format(process.env[name]);
-// }
+		console.error(`No environment variable set for ${name}, using default value: ${hideDefault ? '[hidden]' : defaultValuePrintable}`);
+		return defaultValue;
+	}
 
-// export function clone(o) {
-// 	return JSON.parse(JSON.stringify(o));
-// }
+	return format(process.env[name]);
+}
 
-// const whitelist = JSON.parse(readEnvironmentVariable('CORS_WHITELIST', '["http://localhost:3000"]'));
+export function clone(o) {
+	return JSON.parse(JSON.stringify(o));
+}
+
+// Const whitelist = JSON.parse(readEnvironmentVariable('CORS_WHITELIST', '["http://localhost:3000"]'));
 
 // export const corsOptions = {
 // 	origin: function (origin, callback) {
