@@ -32,192 +32,194 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+	value: true
 });
 exports.validate = validate;
 
 function validate(values) {
-  const errors = {
-    publicationDetails: {},
-    postalAddress: {},
-    affiliateOf: {},
-    distributorOf: {},
-    distributor: {}
-  };
-  const {
-    publicationDetails = {}
-  } = values;
-  const {
-    postalAddress = {}
-  } = values;
-  const {
-    affiliateOf = {}
-  } = values;
-  const {
-    distributorOf = {}
-  } = values;
-  const {
-    distributor = {}
-  } = values;
-  const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'type', 'authorGivenName', 'authorFamilyName'];
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
+	const errors = {
+		publicationDetails: {},
+		postalAddress: {},
+		affiliateOf: {},
+		distributorOf: {},
+		distributor: {}
+	};
+	const {
+		publicationDetails = {}
+	} = values;
+	const {
+		postalAddress = {}
+	} = values;
+	const {
+		affiliateOf = {}
+	} = values;
+	const {
+		distributorOf = {}
+	} = values;
+	const {
+		distributor = {}
+	} = values;
+	const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'type', 'authorGivenName', 'authorFamilyName'];
+	requiredFields.forEach(field => {
+		if (!values[field]) {
+			errors[field] = 'Required';
+		}
+	});
 
-  if (!publicationDetails.frequency) {
-    errors.publicationDetails.frequency = 'Required';
-  } else if (!/[0-9]/i.test(publicationDetails.frequency)) {
-    errors.publicationDetails.frequency = 'Must be a number';
-  }
+	if (!publicationDetails.frequency) {
+		errors.publicationDetails.frequency = 'Required';
+	} else if (!/[0-9]/i.test(publicationDetails.frequency)) {
+		errors.publicationDetails.frequency = 'Must be a number';
+	}
 
-  if(isNaN(Date.parse(values.publicationTime))){
-    errors.publicationTime = 'Not Valid date'
-  }
+	if (isNaN(Date.parse(values.publicationTime))) {
+		errors.publicationTime = 'Not Valid date';
+	}
 
-  if (!postalAddress.address) {
-    errors.postalAddress.address = 'Required';
-  }
+	if (!postalAddress.address) {
+		errors.postalAddress.address = 'Required';
+	}
 
-  if (!postalAddress.city) {
-    errors.postalAddress.city = 'Required';
-  }
+	if (!postalAddress.city) {
+		errors.postalAddress.city = 'Required';
+	}
 
-  if (!postalAddress.zip) {
-    errors.postalAddress.zip = 'Required';
-  }
-  if (!affiliateOf.affiliateOfAddress) {
-    errors.affiliateOf.affiliateOfAddress = 'Required';
-  }
+	if (!postalAddress.zip) {
+		errors.postalAddress.zip = 'Required';
+	}
 
-  if (!affiliateOf.affiliateOfCity) {
-    errors.affiliateOf.affiliateOfCity = 'Required';
-  }
+	if (!affiliateOf.affiliateOfAddress) {
+		errors.affiliateOf.affiliateOfAddress = 'Required';
+	}
 
-  if (!affiliateOf.affiliateOfZip) {
-    errors.affiliateOf.affiliateOfZip = 'Required';
-  }
+	if (!affiliateOf.affiliateOfCity) {
+		errors.affiliateOf.affiliateOfCity = 'Required';
+	}
 
-  if (!affiliateOf.affiliateOfName) {
-    errors.affiliateOf.affiliateOfName = 'Required';
-  }
+	if (!affiliateOf.affiliateOfZip) {
+		errors.affiliateOf.affiliateOfZip = 'Required';
+	}
 
-  if (!distributorOf.distributorOfAddress) {
-    errors.distributorOf.distributorOfAddress = 'Required';
-  }
+	if (!affiliateOf.affiliateOfName) {
+		errors.affiliateOf.affiliateOfName = 'Required';
+	}
 
-  if (!distributorOf.distributorOfCity) {
-    errors.distributorOf.distributorOfCity = 'Required';
-  }
+	if (!distributorOf.distributorOfAddress) {
+		errors.distributorOf.distributorOfAddress = 'Required';
+	}
 
-  if (!distributorOf.distributorOfZip) {
-    errors.distributorOf.distributorOfZip = 'Required';
-  }
+	if (!distributorOf.distributorOfCity) {
+		errors.distributorOf.distributorOfCity = 'Required';
+	}
 
-  if (!distributorOf.distributorOfName) {
-    errors.distributorOf.distributorOfName = 'Required';
-  }
+	if (!distributorOf.distributorOfZip) {
+		errors.distributorOf.distributorOfZip = 'Required';
+	}
 
-  if (!distributor.distributorAddress) {
-    errors.distributor.distributorAddress = 'Required';
-  }
+	if (!distributorOf.distributorOfName) {
+		errors.distributorOf.distributorOfName = 'Required';
+	}
 
-  if (!distributor.distributorCity) {
-    errors.distributor.distributorCity = 'Required';
-  }
+	if (!distributor.distributorAddress) {
+		errors.distributor.distributorAddress = 'Required';
+	}
 
-  if (!distributor.distributorZip) {
-    errors.distributor.distributorZip = 'Required';
-  }
+	if (!distributor.distributorCity) {
+		errors.distributor.distributorCity = 'Required';
+	}
 
-  if (!distributor.distributorName) {
-    errors.distributor.distributorName = 'Required';
-  }
+	if (!distributor.distributorZip) {
+		errors.distributor.distributorZip = 'Required';
+	}
 
+	if (!distributor.distributorName) {
+		errors.distributor.distributorName = 'Required';
+	}
 
-  if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
-    errors.name = 'Name should contains only 3-20 alphabets';
-  }
+	if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
+		errors.name = 'Name should contains only 3-20 alphabets';
+	}
 
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
-    errors.publisherEmail = 'Invalid e-mail address';
-  }
+	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
+		errors.publisherEmail = 'Invalid e-mail address';
+	}
 
-  if (values.primaryContact && values.primaryContact.length > 0) {
-  } else {
-    validateContact();
-    errors.primaryContact = {
-      _error: 'At least one member must be enter'
-    };
-  }
+	if (values.primaryContact && values.primaryContact.length > 0) {
+		// Empty
+	} else {
+		validateContact();
+		errors.primaryContact = {
+			_error: 'At least one member must be enter'
+		};
+	}
 
-  function validateContact() {
-    if (!values.email) {
-      errors.email = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = 'Invalid e-mail address';
-    }
-  }
+	function validateContact() {
+		if (!values.email) {
+			errors.email = 'Required';
+		} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+			errors.email = 'Invalid e-mail address';
+		}
+	}
 
-  if (!/\w{2,}/i.test(values.streetAddress)) {
-    errors.streetAddress = 'Value must be between more than 2 characters';
-  }
+	if (!/\w{2,}/i.test(values.streetAddress)) {
+		errors.streetAddress = 'Value must be between more than 2 characters';
+	}
 
-  if (!/\w{2,}/i.test(values.city)) {
-    errors.city = 'Value must be between more than 2 characters';
-  }
+	if (!/\w{2,}/i.test(values.city)) {
+		errors.city = 'Value must be between more than 2 characters';
+	}
 
-  if (!/^\d{3,}$/i.test(values.zip)) {
-    errors.zip = 'Value must be numbers';
-  }
+	if (!/^\d{3,}$/i.test(values.zip)) {
+		errors.zip = 'Value must be numbers';
+	}
 
-  if (values.role && values.role.length > 0) {
-    return;
-  }
+	if (values.role && values.role.length > 0) {
+		return;
+	}
 
-  errors.role = {
-    _error: 'At least one role must be chosen'
-  };
+	errors.role = {
+		_error: 'At least one role must be chosen'
+	};
 
-  if (values.emails && values.emails.length > 0) {
-    return;
-  }
+	if (values.emails && values.emails.length > 0) {
+		return;
+	}
 
-  errors.emails = {
-    _error: 'At least one email must be enter'
-  };
+	errors.emails = {
+		_error: 'At least one email must be enter'
+	};
 
-  if (!values.classification) {
-    errors.classification = 'Required';;
-  }
+	if (!values.classification) {
+		errors.classification = 'Required';
+	}
 
+	if (values.affiliates && values.affiliates.length > 0) {
+		// Empty
+	} else {
+		validateAffiliate();
+		errors.affiliates = {
+			_error: 'At least one affiliate must be enter'
+		};
+	}
 
-  if (values.affiliates && values.affiliates.length > 0) {} else {
-    validateAffiliate();
-    errors.affiliates = {
-      _error: 'At least one affiliate must be enter'
-    }
-  }
+	function validateAffiliate() {
+		if (!values.affiliatesAddress) {
+			errors.affiliatesAddress = 'Required';
+		}
 
-  function validateAffiliate() {
-    if (!values.affiliatesAddress) {
-      errors.affiliatesAddress = 'Required';
-    }
+		if (!values.affiliatesCity) {
+			errors.affiliatesCity = 'Required';
+		}
 
-    if (!values.affiliatesCity) {
-      errors.affiliatesCity = 'Required';
-    }
+		if (!values.affiliatesZip) {
+			errors.affiliatesZip = 'Required';
+		}
 
-    if (!values.affiliatesZip) {
-      errors.affiliatesZip = 'Required';
-    }
+		if (!values.affiliatesName) {
+			errors.affiliatesName = 'Required';
+		}
+	}
 
-    if (!values.affiliatesName) {
-      errors.affiliatesName = 'Required';
-    }
-  }
-
-  return errors;
+	return errors;
 } // # sourceMappingURL=validate.js.map
-//# sourceMappingURL=validate.js.map
+// # sourceMappingURL=validate.js.map

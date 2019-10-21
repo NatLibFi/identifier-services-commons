@@ -27,8 +27,7 @@
  * for the JavaScript code in this file.
  *
  */
-import { logger } from './logger';
-
+import {logger} from './logger';
 
 export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
 	if (process.env[name] === undefined) {
