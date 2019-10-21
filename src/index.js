@@ -26,7 +26,9 @@
 *
 */
 
+import * as Utils from './utils';
+
 export * from './error';
 export * from './validate';
 export * from './api-client';
-export * from './utils';
+export {Utils};
