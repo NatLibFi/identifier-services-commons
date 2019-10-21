@@ -112,7 +112,8 @@ export function parseBoolean(value) {
 }
 
 export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
-	return async () => {
+	run();
+	async function run() {
 		const parseUrl = new URL(SMTP_URL);
 		const templateCache = {};
 		const query = {queries: [{query: {name: name}}], offset: null};
