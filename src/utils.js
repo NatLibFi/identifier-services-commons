@@ -113,34 +113,36 @@ export function parseBoolean(value) {
 	return Boolean(Number(value));
 }
 
-export async function sendEmail(name, args, getTemplate) {
-	const parseUrl = new URL(SMTP_URL);
-	const templateCache = {};
-	const query = {queries: [{query: {name: name}}], offset: null};
-	const messageTemplate = await getTemplate(query, templateCache);
-	let body = Buffer.from(messageTemplate.body, 'base64').toString('utf8');
-	const newBody = args ?
-		stringTemplate.replace(body, {link: args.link, rejectionReason: args, username: args.id, password: args.password}) :
-		stringTemplate.replace(body);
+export function sendEmail(name, args, getTemplate) {
+	return async () => {
+		const parseUrl = new URL(SMTP_URL);
+		const templateCache = {};
+		const query = {queries: [{query: {name: name}}], offset: null};
+		const messageTemplate = await getTemplate(query, templateCache);
+		let body = Buffer.from(messageTemplate.body, 'base64').toString('utf8');
+		const newBody = args ?
+			stringTemplate.replace(body, {link: args.link, rejectionReason: args, username: args.id, password: args.password}) :
+			stringTemplate.replace(body);
 
-	let transporter = nodemailer.createTransport({
-		host: parseUrl.hostname,
-		port: parseUrl.port,
-		secure: false
-	});
+		let transporter = nodemailer.createTransport({
+			host: parseUrl.hostname,
+			port: parseUrl.port,
+			secure: false
+		});
 
-	const response = await transporter.sendMail({
-		from: 'test@test.com',
-		to: API_EMAIL,
-		replyTo: 'test@test.com',
-		subject: messageTemplate.subject,
-		text: newBody
-	}, (error, info) => {
-		if (error) {
-			logger.log('error', `${error}`);
-		}
+		const response = await transporter.sendMail({
+			from: 'test@test.com',
+			to: API_EMAIL,
+			replyTo: 'test@test.com',
+			subject: messageTemplate.subject,
+			text: newBody
+		}, (error, info) => {
+			if (error) {
+				logger.log('error', `${error}`);
+			}
 
-		logger.log('info', `${info.response}`);
-	});
-	return response;
+			logger.log('info', `${info.response}`);
+		});
+		return response;
+	};
 }
