@@ -34,8 +34,6 @@ import moment from 'moment';
 import stringTemplate from 'string-template-js';
 import {URL} from 'url';
 
-import {SMTP_URL, API_EMAIL} from './config';
-
 const logger = createLogger();
 
 export function readEnvironmentVariable(name, {defaultValue = undefined, hideDefault = false, format = v => v} = {}) {
@@ -113,7 +111,7 @@ export function parseBoolean(value) {
 	return Boolean(Number(value));
 }
 
-export function sendEmail(name, args, getTemplate) {
+export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 	return async () => {
 		const parseUrl = new URL(SMTP_URL);
 		const templateCache = {};
