@@ -134,7 +134,7 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 			secure: false
 		});
 
-		const response = await transporter.sendMail({
+		await transporter.sendMail({
 			from: 'test@test.com',
 			to: API_EMAIL,
 			replyTo: 'test@test.com',
@@ -146,7 +146,7 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 			}
 
 			logger.log('info', `${info.response}`);
+			return info;
 		});
-		return response.messageId;
 	}
 }
