@@ -117,7 +117,7 @@ export function parseBoolean(value) {
 }
 
 export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
-	run();
+	return run();
 	async function run() {
 		const parseUrl = new URL(SMTP_URL);
 		const templateCache = {};
@@ -134,19 +134,22 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 			secure: false
 		});
 
-		await transporter.sendMail({
+		const result = await transporter.sendMail({
 			from: 'test@test.com',
 			to: API_EMAIL,
 			replyTo: 'test@test.com',
 			subject: messageTemplate.subject,
 			text: newBody
-		}, (error, info) => {
-			if (error) {
-				logger.log('error', `${error}`);
+		});
+
+		if (result.error) {
+			logger.log('error', `${result.error}`);
+		} else {
+			if (result.response) {
+				logger.log('info', `${result.response}`);
 			}
 
-			logger.log('info', `${info.response}`);
-			return info;
-		});
+			return result;
+		}
 	}
 }
