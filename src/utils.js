@@ -147,6 +147,6 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 
 			logger.log('info', `${info.response}`);
 		});
-		return response;
+		return response.messageId;
 	}
 }
