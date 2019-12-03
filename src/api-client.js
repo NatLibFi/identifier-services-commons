@@ -45,6 +45,7 @@ export function createApiClient({url, username, password}) {
 		publishers: {
 			create,
 			update,
+			fetchList,
 			getTemplate
 		},
 		publications: {
@@ -59,6 +60,9 @@ export function createApiClient({url, username, password}) {
 		},
 		templates: {
 			getTemplate
+		},
+		ranges: {
+			fetchList
 		}
 
 	};
