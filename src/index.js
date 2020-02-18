@@ -31,4 +31,5 @@ import * as Utils from './utils';
 export * from './error';
 export * from './validate';
 export * from './api-client';
+export * from './api-client-unitTest';
 export {Utils};
