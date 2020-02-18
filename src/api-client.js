@@ -55,6 +55,7 @@ export function createApiClient({url, username, password}) {
 		},
 		requests: {
 			fetchList,
+			read,
 			create,
 			update
 		},
