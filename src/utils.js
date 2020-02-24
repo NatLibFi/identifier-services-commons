@@ -153,3 +153,14 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 		}
 	}
 }
+
+export function handleInterrupt(arg) {
+	if (arg instanceof Error) {
+		console.error(`Uncaught Exception: ${arg.stack}`);
+		// Signal
+	} else {
+		console.log(`Received ${arg}`);
+	}
+
+	process.exit(1);
+}
