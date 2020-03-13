@@ -154,6 +154,38 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 	}
 }
 
+export function calculateNewISSN(array) {
+	// Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
+	const prefix = array[0].slice(0, 4);
+	const slicedRange = array.map(item => item.slice(5, 8));
+	// Get 3 digit of 2nd half from the highest identifier and adding 1 to it
+	const range = Math.max(...slicedRange) + 1;
+	return calculate(prefix, range);
+
+	function calculate(prefix, range) {
+		// Calculation(multiplication and addition of digits)
+		const combine = prefix.concat(range).split('');
+		const sum = combine.reduce((acc, item, index) => {
+			const m = ((combine.length + 1) - index) * item;
+			acc = Number(acc) + Number(m);
+			return acc;
+		}, 0);
+
+		// Get the remainder and calculate it to return the actual check digit
+		const remainder = sum % 11;
+		if (remainder === 0) {
+			const checkDigit = '0';
+			const result = `${prefix}-${range}${checkDigit}`;
+			return result;
+		}
+
+		const diff = 11 - remainder;
+		const checkDigit = diff === 10 ? 'X' : diff.toString();
+		const result = `${prefix}-${range}${checkDigit}`;
+		return result;
+	}
+}
+
 export function handleInterrupt(arg) {
 	if (arg instanceof Error) {
 		console.error(`Uncaught Exception: ${arg.stack}`);
