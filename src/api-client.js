@@ -63,7 +63,8 @@ export function createApiClient({url, username, password}) {
 			getTemplate
 		},
 		ranges: {
-			fetchList
+			fetchList,
+			read
 		}
 
 	};
