@@ -174,7 +174,7 @@ function validate(values) {
 		errors.zip = 'Value must be numbers';
 	}
 
-	if (values.authors && values.authors.length > 0) { //Empty
+	if (values.authors && values.authors.length > 0) { // Empty
 		delete errors.authorGivenName;
 		delete errors.authorFamilyName;
 		delete errors.role;
