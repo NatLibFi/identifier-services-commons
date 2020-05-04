@@ -154,35 +154,39 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 	}
 }
 
-export function calculateNewISSN(array) {
+export function calculateNewISSN({array, format}) {
 	// Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
-	const prefix = array[0].slice(0, 4);
-	const slicedRange = array.map(item => item.slice(5, 8));
-	// Get 3 digit of 2nd half from the highest identifier and adding 1 to it
+	const prefix = array[0].id.slice(0, 4);
+	const prevIndex = array[0].index;
+	const slicedRange = array.map(item => item.id.slice(5, 8)); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
 	const range = Math.max(...slicedRange) + 1;
-	return calculate(prefix, range);
+	if (format === 'printed-and-electronic') {
+		return [calculate(prefix, range, prevIndex, 'printed'), calculate(prefix, range + 1, prevIndex + 1, 'electronic')];
+	}
 
-	function calculate(prefix, range) {
-		// Calculation(multiplication and addition of digits)
+	return [calculate(prefix, range, prevIndex, format)];
+
+	function calculate(prefix, range, prevIndex, format) {
+	// Calculation(multiplication and addition of digits)
 		const combine = prefix.concat(range).split('');
 		const sum = combine.reduce((acc, item, index) => {
-			const m = ((combine.length + 1) - index) * item;
+			const m = (combine.length + 1 - index) * item;
 			acc = Number(acc) + Number(m);
 			return acc;
-		}, 0);
+		}, 0); // Get the remainder and calculate it to return the actual check digit
 
-		// Get the remainder and calculate it to return the actual check digit
 		const remainder = sum % 11;
+
 		if (remainder === 0) {
 			const checkDigit = '0';
 			const result = `${prefix}-${range}${checkDigit}`;
-			return result;
+			return {id: result, index: prevIndex + 1, type: format};
 		}
 
 		const diff = 11 - remainder;
 		const checkDigit = diff === 10 ? 'X' : diff.toString();
 		const result = `${prefix}-${range}${checkDigit}`;
-		return result;
+		return {id: result, index: prevIndex + 1, type: format};
 	}
 }
 
