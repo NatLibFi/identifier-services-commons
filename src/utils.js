@@ -157,16 +157,15 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 export function calculateNewISSN({array, format}) {
 	// Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
 	const prefix = array[0].id.slice(0, 4);
-	const prevIndex = array[0].index;
 	const slicedRange = array.map(item => item.id.slice(5, 8)); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
 	const range = Math.max(...slicedRange) + 1;
 	if (format === 'printed-and-electronic') {
-		return [calculate(prefix, range, prevIndex, 'printed'), calculate(prefix, range + 1, prevIndex + 1, 'electronic')];
+		return [calculate(prefix, range, 'printed'), calculate(prefix, range + 1, 'electronic')];
 	}
 
-	return [calculate(prefix, range, prevIndex, format)];
+	return [calculate(prefix, range, format)];
 
-	function calculate(prefix, range, prevIndex, format) {
+	function calculate(prefix, range, format) {
 	// Calculation(multiplication and addition of digits)
 		const combine = prefix.concat(range).split('');
 		const sum = combine.reduce((acc, item, index) => {
@@ -180,13 +179,13 @@ export function calculateNewISSN({array, format}) {
 		if (remainder === 0) {
 			const checkDigit = '0';
 			const result = `${prefix}-${range}${checkDigit}`;
-			return {id: result, index: prevIndex + 1, type: format};
+			return {id: result, type: format};
 		}
 
 		const diff = 11 - remainder;
 		const checkDigit = diff === 10 ? 'X' : diff.toString();
 		const result = `${prefix}-${range}${checkDigit}`;
-		return {id: result, index: prevIndex + 1, type: format};
+		return {id: result, type: format};
 	}
 }
 
