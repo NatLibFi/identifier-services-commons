@@ -60,8 +60,23 @@ function validate(values) {
 		distributor = {},
 		formatDetails = {}
 	} = values;
-  const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'authorGivenName', 
-  'authorFamilyName', 'role', 'selectFormat', 'type', 'publisherType', 'university', 'universityName', 'universityCity'];
+
+	const requiredFields = [
+		'name',
+		'publisherEmail',
+		'title',
+		'publicationTime',
+		'authorGivenName',
+
+		'authorFamilyName',
+		'role',
+		'selectFormat',
+		'type',
+		'publisherType',
+		'university',
+		'universityName',
+		'universityCity'
+	];
 	requiredFields.forEach(field => {
 		if (!values[field]) {
 			errors[field] = 'Required';
