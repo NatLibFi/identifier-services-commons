@@ -123,6 +123,12 @@ export function createApiClient({url, username, password}) {
 
 		if (response.status === HttpStatus.OK) {
 			const result = await response.json();
+			if (result.email) {
+				result.emails = [{value: result.email, type: 'work'}];
+				delete result.email;
+				return result;
+			}
+
 			return result;
 		}
 	}
