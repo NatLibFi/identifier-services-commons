@@ -159,16 +159,14 @@ export function calculateNewISSN({
 	format,
 	activeRange
 }) {
-	// Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
+// Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
 	const prefix = activeRange.prefix;
-	const slicedRange = prevIdentifier.id.slice(5, 8); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
+	const slicedRange = prevIdentifier !== undefined && prevIdentifier.identifier.id.slice(5, 8); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
 
-	const range = prevIdentifier ?
-		Number(slicedRange) + 1 :
-		Number(activeRange.rangeStart) + 1;
+	const range = prevIdentifier === undefined ? Number(activeRange.rangeStart) : Number(slicedRange) + 1;
 
 	if (format === 'printed-and-electronic') {
-		return [calculate(prefix, range, 'printed'), calculate(prefix, range + 1, 'electronic')];
+		return [calculate(prefix, range, 'printed'), calculate(prefix, Number(range) + 1, 'electronic')];
 	}
 
 	return [calculate(prefix, range, format)];
