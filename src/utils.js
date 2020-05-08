@@ -156,13 +156,16 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 
 export function calculateNewISSN({
 	prevIdentifier,
-	format
+	format,
+	activeRange
 }) {
 	// Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
-	const prefix = prevIdentifier.id.slice(0, 4);
+	const prefix = activeRange.prefix;
 	const slicedRange = prevIdentifier.id.slice(5, 8); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
 
-	const range = Number(slicedRange) + 1;
+	const range = prevIdentifier ?
+		Number(slicedRange) + 1 :
+		Number(activeRange.rangeStart) + 1;
 
 	if (format === 'printed-and-electronic') {
 		return [calculate(prefix, range, 'printed'), calculate(prefix, range + 1, 'electronic')];
