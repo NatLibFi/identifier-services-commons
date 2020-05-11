@@ -161,7 +161,7 @@ export function calculateNewISSN({
 }) {
 // Get prefix from array of publication ISSN identifiers assuming same prefix at the moment
 	const prefix = activeRange.prefix;
-	const slicedRange = prevIdentifier !== undefined && prevIdentifier.identifier.id.slice(5, 8); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
+	const slicedRange = prevIdentifier !== undefined && prevIdentifier.id.slice(5, 8); // Get 3 digit of 2nd half from the highest identifier and adding 1 to it
 
 	const range = prevIdentifier === undefined ? Number(activeRange.rangeStart) : Number(slicedRange) + 1;
 
