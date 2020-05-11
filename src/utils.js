@@ -184,7 +184,11 @@ export function calculateNewISSN({
 
 		if (remainder === 0) {
 			const checkDigit = '0';
-			const result = `${prefix}-${range}${checkDigit}`;
+			const result = range < 10 ?
+				`${prefix}-00${range}${checkDigit}` :
+				(range > 9 && range < 100 ?
+					`${prefix}-0${range}${checkDigit}` :
+					`${prefix}-${range}${checkDigit}`);
 			return {
 				id: result,
 				type: format
@@ -193,7 +197,11 @@ export function calculateNewISSN({
 
 		const diff = 11 - remainder;
 		const checkDigit = diff === 10 ? 'X' : diff.toString();
-		const result = `${prefix}-${range}${checkDigit}`;
+		const result = range < 10 ?
+			`${prefix}-00${range}${checkDigit}` :
+			(range > 9 && range < 100 ?
+				`${prefix}-0${range}${checkDigit}` :
+				`${prefix}-${range}${checkDigit}`);
 		return {
 			id: result,
 			type: format
