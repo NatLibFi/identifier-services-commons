@@ -66,6 +66,12 @@ function validate(values) {
 		}
 	});
 
+	if (!values.contactEmail) {
+    errors.contactEmail = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contactEmail)) {
+    errors.contactEmail = 'Invalid e-mail address';
+  }
+
 	if (!formatDetails.fileFormat) {
 		errors.formatDetails.fileFormat = 'Required';
 	} else if (formatDetails.fileFormat.value === '') {
