@@ -172,6 +172,13 @@ export function calculateNewISSN({
 	return [calculate(prefix, range, format)];
 
 	function calculate(prefix, range, format) {
+		range = range < 10 ?
+			`00${range}` :
+			(
+				range > 9 && range < 100 ?
+					`0${range}` :
+					`${range}`
+			);
 		// Calculation(multiplication and addition of digits)
 		const combine = prefix.concat(range).split('');
 		const sum = combine.reduce((acc, item, index) => {
@@ -184,11 +191,7 @@ export function calculateNewISSN({
 
 		if (remainder === 0) {
 			const checkDigit = '0';
-			const result = range < 10 ?
-				`${prefix}-00${range}${checkDigit}` :
-				(range > 9 && range < 100 ?
-					`${prefix}-0${range}${checkDigit}` :
-					`${prefix}-${range}${checkDigit}`);
+			const result = `${prefix}-${range}${checkDigit}`;
 			return {
 				id: result,
 				type: format
@@ -197,11 +200,7 @@ export function calculateNewISSN({
 
 		const diff = 11 - remainder;
 		const checkDigit = diff === 10 ? 'X' : diff.toString();
-		const result = range < 10 ?
-			`${prefix}-00${range}${checkDigit}` :
-			(range > 9 && range < 100 ?
-				`${prefix}-0${range}${checkDigit}` :
-				`${prefix}-${range}${checkDigit}`);
+		const result = `${prefix}-${range}${checkDigit}`;
 		return {
 			id: result,
 			type: format
