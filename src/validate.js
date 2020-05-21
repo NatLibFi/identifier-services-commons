@@ -49,7 +49,8 @@ function validate(values) {
 		affiliateOf: {},
 		distributorOf: {},
 		distributor: {},
-		formatDetails: {}
+		formatDetails: {},
+		university: {}
 	};
 	const {
 		publicationDetails = {},
@@ -57,14 +58,51 @@ function validate(values) {
 		affiliateOf = {},
 		distributorOf = {},
 		distributor = {},
-		formatDetails = {}
+		formatDetails = {},
+		university = {}
 	} = values;
+<<<<<<< HEAD
 	const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'authorGivenName', 'authorFamilyName', 'role', 'selectFormat', 'type'];
+=======
+
+	const requiredFields = [
+		'name',
+		'publisherEmail',
+		'title',
+		'publicationTime',
+		'authorGivenName',
+
+		'authorFamilyName',
+		'role',
+		'selectFormat',
+		'type',
+		'publisherType',
+		'firstName',
+		'lastName',
+		'address',
+		'postCode',
+		'city',
+		'country',
+		'contactEmail'
+	];
+>>>>>>> 7314ae6... validate university field
 	requiredFields.forEach(field => {
 		if (!values[field]) {
 			errors[field] = 'Required';
 		}
 	});
+
+	if (!values.selectUniversity) {
+    errors.selectUniversity = 'Required'
+  }
+
+  if (!university.name) {
+    errors.university.name = 'Required'
+  }
+
+  if (!university.city) {
+    errors.university.city = 'Required'
+  }
 
 	if (!values.contactEmail) {
     errors.contactEmail = 'Required';
@@ -87,6 +125,14 @@ function validate(values) {
 	} else if (!/[0-9]/i.test(publicationDetails.frequency)) {
 		errors.publicationDetails.frequency = 'Must be a number';
 	}
+
+	if (!publicationDetails.publishedPreviously) {
+    errors.publicationDetails.publishedPreviously = 'Required';
+  }
+  
+  if (!publicationDetails.publishingActivities) {
+    errors.publicationDetails.publishingActivities = 'Required';
+  }
 
 	if (isNaN(Date.parse(values.publicationTime))) {
 		errors.publicationTime = 'Not Valid date';
