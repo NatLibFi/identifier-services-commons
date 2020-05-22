@@ -128,16 +128,21 @@ function validate(values) {
 		errors.formatDetails.printFormat = 'Required';
 	}
 
-	if (!publicationDetails.frequency.currentYear) {
-		errors.publicationDetails.frequency.currentYear = 'Required';
-	} else if (!/[0-9]/i.test(publicationDetails.frequency.currentYear)) {
-		errors.publicationDetails.frequency.currentYear = 'Must be a number';
-	}
+	if (publicationDetails.frequency) {
+		if (!publicationDetails.frequency.currentYear) {
+			errors.publicationDetails.frequency.currentYear = 'Required';
+		} else if (!/[0-9]/i.test(publicationDetails.frequency.currentYear)) {
+			errors.publicationDetails.frequency.currentYear = 'Must be a number';
+		}
 
-	if (!publicationDetails.frequency.nextYear) {
+		if (!publicationDetails.frequency.nextYear) {
+			errors.publicationDetails.frequency.nextYear = 'Required';
+		} else if (!/[0-9]/i.test(publicationDetails.frequency.nextYear)) {
+			errors.publicationDetails.frequency.nextYear = 'Must be a number';
+		}
+	} else {
 		errors.publicationDetails.frequency.nextYear = 'Required';
-	} else if (!/[0-9]/i.test(publicationDetails.frequency.nextYear)) {
-		errors.publicationDetails.frequency.nextYear = 'Must be a number';
+		errors.publicationDetails.frequency.currentYear = 'Required';
 	}
 
 	if (!publicationDetails.previouslyPublished) {
