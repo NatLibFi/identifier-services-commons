@@ -44,7 +44,7 @@ function isEmpty(obj) {
 
 function validate(values) {
 	const errors = {
-		publicationDetails: {},
+		publicationDetails: {frequency: {}},
 		postalAddress: {},
 		affiliateOf: {},
 		distributorOf: {},
@@ -53,7 +53,7 @@ function validate(values) {
 		university: {}
 	};
 	const {
-		publicationDetails = {},
+		publicationDetails = {frequency: {}},
 		postalAddress = {},
 		affiliateOf = {},
 		distributorOf = {},
@@ -71,11 +71,11 @@ function validate(values) {
 		'title',
 		'publicationTime',
 		'authorGivenName',
-
 		'authorFamilyName',
 		'role',
 		'selectFormat',
 		'type',
+		'frequency',
 		'publisherType',
 		'firstName',
 		'lastName',
@@ -93,16 +93,16 @@ function validate(values) {
 	});
 
 	if (!values.selectUniversity) {
-    errors.selectUniversity = 'Required'
-  }
+		errors.selectUniversity = 'Required';
+	}
 
-  if (!university.name) {
-    errors.university.name = 'Required'
-  }
+	if (!university.name) {
+		errors.university.name = 'Required';
+	}
 
-  if (!university.city) {
-    errors.university.city = 'Required'
-  }
+	if (!university.city) {
+		errors.university.city = 'Required';
+	}
 
 	if (!values.contactEmail) {
     errors.contactEmail = 'Required';
@@ -120,19 +120,25 @@ function validate(values) {
 		errors.formatDetails.printFormat = 'Required';
 	}
 
-	if (!publicationDetails.frequency) {
-		errors.publicationDetails.frequency = 'Required';
-	} else if (!/[0-9]/i.test(publicationDetails.frequency)) {
-		errors.publicationDetails.frequency = 'Must be a number';
+	if (!publicationDetails.frequency.currentYear) {
+		errors.publicationDetails.frequency.currentYear = 'Required';
+	} else if (!/[0-9]/i.test(publicationDetails.frequency.currentYear)) {
+		errors.publicationDetails.frequency.currentYear = 'Must be a number';
+	}
+
+	if (!publicationDetails.frequency.nextYear) {
+		errors.publicationDetails.frequency.nextYear = 'Required';
+	} else if (!/[0-9]/i.test(publicationDetails.frequency.nextYear)) {
+		errors.publicationDetails.frequency.nextYear = 'Must be a number';
 	}
 
 	if (!publicationDetails.publishedPreviously) {
-    errors.publicationDetails.publishedPreviously = 'Required';
-  }
-  
-  if (!publicationDetails.publishingActivities) {
-    errors.publicationDetails.publishingActivities = 'Required';
-  }
+		errors.publicationDetails.publishedPreviously = 'Required';
+	}
+
+	if (!publicationDetails.publishingActivities) {
+		errors.publicationDetails.publishingActivities = 'Required';
+	}
 
 	if (isNaN(Date.parse(values.publicationTime))) {
 		errors.publicationTime = 'Not Valid date';
@@ -198,8 +204,8 @@ function validate(values) {
 		errors.distributor.distributorName = 'Required';
 	}
 
-	if (!/^[a-zA-Z\s]{3,20}$/i.test(values.name)) {
-		errors.name = 'Name should contains only 3-20 alphabets';
+	if (!/^[a-zA-Z\s]{3,256}$/i.test(values.name)) {
+		errors.name = 'Name should contains only 3-256 alphabets';
 	}
 
 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
