@@ -59,7 +59,9 @@ function validate(values) {
 		distributorOf = {},
 		distributor = {},
 		formatDetails = {},
-		university = {}
+		university = {},
+		frequency = {},
+		type = {}
 	} = values;
 <<<<<<< HEAD
 	const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'authorGivenName', 'authorFamilyName', 'role', 'selectFormat', 'type'];
@@ -74,8 +76,6 @@ function validate(values) {
 		'authorFamilyName',
 		'role',
 		'selectFormat',
-		'type',
-		'frequency',
 		'publisherType',
 		'firstName',
 		'lastName',
@@ -83,7 +83,9 @@ function validate(values) {
 		'postCode',
 		'city',
 		'country',
-		'contactEmail'
+		'contactEmail',
+		'firstNumber',
+		'firstYear'
 	];
 >>>>>>> 7314ae6... validate university field
 	requiredFields.forEach(field => {
@@ -110,6 +112,12 @@ function validate(values) {
     errors.contactEmail = 'Invalid e-mail address';
   }
 
+	if (!formatDetails.format) {
+		errors.formatDetails.format = 'Required';
+	} else if (formatDetails.format.value === '') {
+		errors.formatDetails.format = 'Required';
+	}
+
 	if (!formatDetails.fileFormat) {
 		errors.formatDetails.fileFormat = 'Required';
 	} else if (formatDetails.fileFormat.value === '') {
@@ -132,8 +140,8 @@ function validate(values) {
 		errors.publicationDetails.frequency.nextYear = 'Must be a number';
 	}
 
-	if (!publicationDetails.publishedPreviously) {
-		errors.publicationDetails.publishedPreviously = 'Required';
+	if (!publicationDetails.previouslyPublished) {
+		errors.publicationDetails.previouslyPublished = 'Required';
 	}
 
 	if (!publicationDetails.publishingActivities) {
@@ -297,6 +305,14 @@ function validate(values) {
 		if (!values.affiliatesName) {
 			errors.affiliatesName = 'Required';
 		}
+	}
+
+	if (!frequency.value) {
+		errors.frequency = 'Required';
+	}
+
+	if (!type.value) {
+		errors.type = 'Required';
 	}
 
 	return errors;
