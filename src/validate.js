@@ -217,7 +217,7 @@ function validate(values) {
 		errors.distributor.distributorName = 'Required';
 	}
 
-	if (!/^[a-zA-ZÀ-ÿs]{3,256}$/i.test(values.name)) {
+	if (!/^[a-zA-ZÀ-ÿ\s]{3,256}$/i.test(values.name)) {
 		errors.name = 'Name should contains only 3-256 alphabets';
 	}
 
