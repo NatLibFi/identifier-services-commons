@@ -30,17 +30,9 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+	value: true
 });
 exports.validate = validate;
-
-function isEmpty(obj) {
-  for(var key in obj) {
-      if(obj.hasOwnProperty(key))
-          return false;
-  }
-  return true;
-}
 
 function validate(values) {
 	const errors = {
@@ -63,9 +55,6 @@ function validate(values) {
 		frequency = {},
 		type = {}
 	} = values;
-<<<<<<< HEAD
-	const requiredFields = ['name', 'publisherEmail', 'title', 'publicationTime', 'authorGivenName', 'authorFamilyName', 'role', 'selectFormat', 'type'];
-=======
 
 	const requiredFields = [
 		'name',
@@ -87,7 +76,6 @@ function validate(values) {
 		'firstNumber',
 		'firstYear'
 	];
->>>>>>> 7314ae6... validate university field
 	requiredFields.forEach(field => {
 		if (!values[field]) {
 			errors[field] = 'Required';
@@ -107,10 +95,10 @@ function validate(values) {
 	}
 
 	if (!values.contactEmail) {
-    errors.contactEmail = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contactEmail)) {
-    errors.contactEmail = 'Invalid e-mail address';
-  }
+		errors.contactEmail = 'Required';
+	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contactEmail)) {
+		errors.contactEmail = 'Invalid e-mail address';
+	}
 
 	if (!formatDetails.format) {
 		errors.formatDetails.format = 'Required';
@@ -312,11 +300,11 @@ function validate(values) {
 		}
 	}
 
-	if (!frequency.value) {
+	if (!values._id && !frequency.value) {
 		errors.frequency = 'Required';
 	}
 
-	if (!type.value) {
+	if (!values._id && !type.value) {
 		errors.type = 'Required';
 	}
 
