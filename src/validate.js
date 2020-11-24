@@ -89,19 +89,19 @@ function validate(values) {
 
 	if(values.langGroup) {
 		if(!/^\d{3}$/.test(values.langGroup)) {
-			errors.langGroup = 'Invalid Languge Group Value'
+			errors.langGroup = 'Invalid Value'
 		}
 	}
 
 	if(values.rangeStart) {
 		if(!/^\d{1,5}$/.test(values.rangeStart)) {
-			errors.rangeStart = 'Invalid Range Start Value'
+			errors.rangeStart = 'Invalid Value'
 		}
 	}
 
 	if(values.rangeEnd) {
 		if(!/^\d{1,5}$/.test(values.rangeEnd)) {
-			errors.rangeEnd = 'Invalid Range End Value'
+			errors.rangeEnd = 'Invalid Value'
 		}
 	}
 
