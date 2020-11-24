@@ -74,13 +74,36 @@ function validate(values) {
 		'country',
 		'contactEmail',
 		'firstNumber',
-		'firstYear'
+		'firstYear',
+		'prefix',
+		'langGroup',
+		'category',
+		'rangeStart',
+		'rangeEnd'
 	];
 	requiredFields.forEach(field => {
 		if (!values[field]) {
 			errors[field] = 'Required';
 		}
 	});
+
+	if(values.langGroup) {
+		if(!/^\d{3}$/.test(values.langGroup)) {
+			errors.langGroup = 'Invalid Languge Group Value'
+		}
+	}
+
+	if(values.rangeStart) {
+		if(!/^\d{1,5}$/.test(values.rangeStart)) {
+			errors.rangeStart = 'Invalid Range Start Value'
+		}
+	}
+
+	if(values.rangeEnd) {
+		if(!/^\d{1,5}$/.test(values.rangeEnd)) {
+			errors.rangeEnd = 'Invalid Range End Value'
+		}
+	}
 
 	if (!values.selectUniversity) {
 		errors.selectUniversity = 'Required';
