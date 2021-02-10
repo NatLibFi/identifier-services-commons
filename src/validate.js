@@ -37,6 +37,7 @@ exports.validate = validate;
 function validate(values) {
 	const errors = {
 		publicationDetails: {frequency: {}},
+		previousPublication: {},
 		postalAddress: {},
 		affiliateOf: {},
 		distributorOf: {},
@@ -46,6 +47,7 @@ function validate(values) {
 	};
 	const {
 		publicationDetails = {frequency: {}},
+		previousPublication: {},
 		postalAddress = {},
 		affiliateOf = {},
 		distributorOf = {},
@@ -138,22 +140,37 @@ function validate(values) {
 	if (!formatDetails.printFormat) {
 		errors.formatDetails.printFormat = 'Required';
 	}
+	
+	if (formatDetails.run && !/^[0-9]/gm.test(publicationDetails.formatDetails.run)) {
+		errors.formatDetails.run = 'Must between [0-9]'
+	}
+
+	if (formatDetails.run && !/^[0-9]|([MDCLXVI])/gm.test(publicationDetails.formatDetails.edition)) {
+		errors.formatDetails.edition = 'Must between [0-9] or Roman'
+	}
 
 	if (publicationDetails.frequency) {
 		if (!publicationDetails.frequency.currentYear) {
-			errors.publicationDetails.frequency.currentYear = 'Required';
-		} else if (!/[0-9]|([MDCLXVI])/i.test(publicationDetails.frequency.currentYear)) {
-			errors.publicationDetails.frequency.currentYear = 'Must be a number';
+		  errors.publicationDetails.frequency.currentYear = 'Required';
+		} else if (!/^[0-9]|([MDCLXVI])/gm.test(publicationDetails.frequency.currentYear)) {
+		  errors.publicationDetails.frequency.currentYear = 'Must between [0-9] or Roman';
 		}
-
+	
 		if (!publicationDetails.frequency.nextYear) {
-			errors.publicationDetails.frequency.nextYear = 'Required';
-		} else if (!/[0-9]|([MDCLXVI])/i.test(publicationDetails.frequency.nextYear)) {
-			errors.publicationDetails.frequency.nextYear = 'Must be a number';
+		  errors.publicationDetails.frequency.nextYear = 'Required';
+		} else if (!/^[0-9]|([MDCLXVI])/gm.test(publicationDetails.frequency.nextYear)) {
+		  errors.publicationDetails.frequency.nextYear = 'Must between [0-9] or Roman';
 		}
 	} else {
 		errors.publicationDetails.frequency.nextYear = 'Required';
 		errors.publicationDetails.frequency.currentYear = 'Required';
+	}
+
+	if (previousPublication.lastYear && !/^[0-9]|([MDCLXVI])/gm.test(publicationDetails.frequency.lastYear)) {
+		errors.previousPublication.lastYear = 'Must between [0-9] or Roman';
+	}
+	if (previousPublication.lastNumber && !/^[0-9]|([MDCLXVI])/gm.test(publicationDetails.frequency.lastNumber)) {
+		errors.previousPublication.lastNumber = 'Must between [0-9] or Roman';
 	}
 
 	if (!publicationDetails.previouslyPublished) {
