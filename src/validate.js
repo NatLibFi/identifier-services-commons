@@ -47,7 +47,7 @@ function validate(values) {
 	};
 	const {
 		publicationDetails = {frequency: {}},
-		previousPublication: {},
+		previousPublication = {},
 		postalAddress = {},
 		affiliateOf = {},
 		distributorOf = {},
