@@ -43,6 +43,7 @@ function validate(values) {
 		distributorOf: {},
 		distributor: {},
 		formatDetails: {},
+		issnFormatDetails: {},
 		university: {}
 	};
 	const {
@@ -55,6 +56,7 @@ function validate(values) {
 		formatDetails = {},
 		university = {},
 		frequency = {},
+		issnFormatDetails = [],
 		type = {}
 	} = values;
 
@@ -346,6 +348,14 @@ function validate(values) {
 
 	if (!values._id && !type.value) {
 		errors.type = 'Required';
+	}
+
+	if (issnFormatDetails.length===0) {
+		errors.issnFormatDetails = 'Required';
+	} else if (issnFormatDetails.length>0) {
+		if(issnFormatDetails.some(item => item.value === online) && !formatDetails.url) {
+			errors.formatDetails.url = 'Required';
+		}
 	}
 
 	return errors;
