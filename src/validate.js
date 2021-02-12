@@ -353,7 +353,7 @@ function validate(values) {
 	if (issnFormatDetails.length===0) {
 		errors.issnFormatDetails = 'Required';
 	} else if (issnFormatDetails.length>0) {
-		if(issnFormatDetails.some(item => item.value === online) && !formatDetails.url) {
+		if(issnFormatDetails.some(item => item.value === 'online') && !formatDetails.url) {
 			errors.formatDetails.url = 'Required';
 		}
 	}
