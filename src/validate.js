@@ -43,7 +43,6 @@ function validate(values) {
 		distributorOf: {},
 		distributor: {},
 		formatDetails: {},
-		issnFormatDetails: {},
 		university: {}
 	};
 	const {
