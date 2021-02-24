@@ -97,13 +97,13 @@ function validate(values) {
 	}
 
 	if(values.rangeStart) {
-		if(!/^\d{1,5}$/.test(values.rangeStart)) {
+		if(!/^\d{1,7}$/.test(values.rangeStart)) {
 			errors.rangeStart = 'Invalid Value'
 		}
 	}
 
 	if(values.rangeEnd) {
-		if(!/^\d{1,5}$/.test(values.rangeEnd)) {
+		if(!/^\d{1,7}$/.test(values.rangeEnd)) {
 			errors.rangeEnd = 'Invalid Value'
 		}
 	}
