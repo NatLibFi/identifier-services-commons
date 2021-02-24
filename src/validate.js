@@ -39,9 +39,6 @@ function validate(values) {
 		publicationDetails: {frequency: {}},
 		previousPublication: {},
 		postalAddress: {},
-		affiliateOf: {},
-		distributorOf: {},
-		distributor: {},
 		formatDetails: {},
 		university: {}
 	};
@@ -49,9 +46,6 @@ function validate(values) {
 		publicationDetails = {frequency: {}},
 		previousPublication = {},
 		postalAddress = {},
-		affiliateOf = {},
-		distributorOf = {},
-		distributor = {},
 		formatDetails = {},
 		university = {},
 		frequency = {},
@@ -198,53 +192,8 @@ function validate(values) {
 		errors.postalAddress.zip = 'Required';
 	}
 
-	if (!affiliateOf.affiliateOfAddress) {
-		errors.affiliateOf.affiliateOfAddress = 'Required';
-	}
 
-	if (!affiliateOf.affiliateOfCity) {
-		errors.affiliateOf.affiliateOfCity = 'Required';
-	}
 
-	if (!affiliateOf.affiliateOfZip) {
-		errors.affiliateOf.affiliateOfZip = 'Required';
-	}
-
-	if (!affiliateOf.affiliateOfName) {
-		errors.affiliateOf.affiliateOfName = 'Required';
-	}
-
-	if (!distributorOf.distributorOfAddress) {
-		errors.distributorOf.distributorOfAddress = 'Required';
-	}
-
-	if (!distributorOf.distributorOfCity) {
-		errors.distributorOf.distributorOfCity = 'Required';
-	}
-
-	if (!distributorOf.distributorOfZip) {
-		errors.distributorOf.distributorOfZip = 'Required';
-	}
-
-	if (!distributorOf.distributorOfName) {
-		errors.distributorOf.distributorOfName = 'Required';
-	}
-
-	if (!distributor.distributorAddress) {
-		errors.distributor.distributorAddress = 'Required';
-	}
-
-	if (!distributor.distributorCity) {
-		errors.distributor.distributorCity = 'Required';
-	}
-
-	if (!distributor.distributorZip) {
-		errors.distributor.distributorZip = 'Required';
-	}
-
-	if (!distributor.distributorName) {
-		errors.distributor.distributorName = 'Required';
-	}
 
 	if (!/^[a-zA-ZÀ-ÿ\s]{3,256}$/i.test(values.name)) {
 		errors.name = 'Name should contains only 3-256 alphabets';
@@ -313,32 +262,6 @@ function validate(values) {
 
 	if (!values.classification) {
 		errors.classification = 'Required';
-	}
-
-	if (values.affiliates && values.affiliates.length > 0) {// Empty
-	} else {
-		validateAffiliate();
-		errors.affiliates = {
-			_error: 'At least one affiliate must be enter'
-		};
-	}
-
-	function validateAffiliate() {
-		if (!values.affiliatesAddress) {
-			errors.affiliatesAddress = 'Required';
-		}
-
-		if (!values.affiliatesCity) {
-			errors.affiliatesCity = 'Required';
-		}
-
-		if (!values.affiliatesZip) {
-			errors.affiliatesZip = 'Required';
-		}
-
-		if (!values.affiliatesName) {
-			errors.affiliatesName = 'Required';
-		}
 	}
 
 	if (!values._id && !frequency.value) {
