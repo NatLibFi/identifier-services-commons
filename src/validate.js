@@ -140,10 +140,6 @@ function validate(values) {
 		errors.formatDetails.run = 'Must between [0-9]'
 	}
 
-	if (formatDetails.run && !/^([0-9]|([MDCLXVI]))*$/gm.test(formatDetails.edition)) {
-		errors.formatDetails.edition = 'Must between [0-9] or Roman'
-	}
-
 	if (publicationDetails.frequency) {
 		if (!publicationDetails.frequency.currentYear) {
 		  errors.publicationDetails.frequency.currentYear = 'Required';
