@@ -55,6 +55,7 @@ function validate(values) {
 
 	const requiredFields = [
 		'name',
+		'contactPerson',
 		'publisherEmail',
 		'title',
 		'publicationTime',
