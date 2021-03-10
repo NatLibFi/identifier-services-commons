@@ -138,20 +138,20 @@ function validate(values) {
 	}
 	
 	if (formatDetails.run && !/^[0-9]*$/gm.test(formatDetails.run)) {
-		errors.formatDetails.run = 'Must between [0-9]'
+		errors.formatDetails.run = 'Must be a number [0-9]'
 	}
 
 	if (publicationDetails.frequency) {
 		if (!publicationDetails.frequency.currentYear) {
 		  errors.publicationDetails.frequency.currentYear = 'Required';
 		} else if (!/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.frequency.currentYear)) {
-		  errors.publicationDetails.frequency.currentYear = 'Must between [0-9] or Roman';
+		  errors.publicationDetails.frequency.currentYear = 'Must be a number [0-9] or Roman';
 		}
 	
 		if (!publicationDetails.frequency.nextYear) {
 		  errors.publicationDetails.frequency.nextYear = 'Required';
 		} else if (!/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.frequency.nextYear)) {
-		  errors.publicationDetails.frequency.nextYear = 'Must between [0-9] or Roman';
+		  errors.publicationDetails.frequency.nextYear = 'Must be a number [0-9] or Roman';
 		}
 	} else {
 		errors.publicationDetails.frequency.nextYear = 'Required';
@@ -159,10 +159,10 @@ function validate(values) {
 	}
 
 	if (previousPublication.lastYear && !/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.lastYear)) {
-		errors.previousPublication.lastYear = 'Must between [0-9] or Roman';
+		errors.previousPublication.lastYear = 'Must be a number [0-9] or Roman';
 	}
 	if (previousPublication.lastNumber && !/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.lastNumber)) {
-		errors.previousPublication.lastNumber = 'Must between [0-9] or Roman';
+		errors.previousPublication.lastNumber = 'Must be a number [0-9] or Roman';
 	}
 
 	if (!publicationDetails.previouslyPublished) {
@@ -192,7 +192,7 @@ function validate(values) {
 
 
 
-	if (!/^[a-zA-ZÀ-ÿ\s]{3,256}$/i.test(values.name)) {
+	if (!/^[a-zA-ZÀ-ÿ\s@~`!@#$%^&*()_=+\\';:"\/?>.<,-]{3,256}$/i.test(values.name)) {
 		errors.name = 'Name should contains only 3-256 alphabets';
 	}
 
