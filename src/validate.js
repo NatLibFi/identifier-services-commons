@@ -158,10 +158,10 @@ function validate(values) {
 		errors.publicationDetails.frequency.currentYear = 'Required';
 	}
 
-	if (previousPublication.lastYear && !/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.lastYear)) {
+	if (previousPublication.lastYear && !/^([0-9]|([MDCLXVI]))*$/gm.test(previousPublication.lastYear)) {
 		errors.previousPublication.lastYear = 'Must be a number [0-9] or Roman';
 	}
-	if (previousPublication.lastNumber && !/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.lastNumber)) {
+	if (previousPublication.lastNumber && !/^([0-9]|([MDCLXVI]))*$/gm.test(previousPublication.lastNumber)) {
 		errors.previousPublication.lastNumber = 'Must be a number [0-9] or Roman';
 	}
 
