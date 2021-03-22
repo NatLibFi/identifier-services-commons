@@ -269,7 +269,7 @@ function validate(values) {
 		errors.type = 'Required';
 	}
 
-	if (issnFormatDetails.length===0) {
+	if (issnFormatDetails === null || issnFormatDetails.length===0) {
 		errors.issnFormatDetails = 'Required';
 	} else if (issnFormatDetails.length>0) {
 		if(issnFormatDetails.some(item => item.value === 'online') && !formatDetails.url) {
