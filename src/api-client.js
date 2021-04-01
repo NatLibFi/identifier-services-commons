@@ -43,6 +43,7 @@ export function createApiClient({url, username, password}) {
 			update
 		},
 		publishers: {
+			read,
 			create,
 			update,
 			fetchList,
