@@ -135,7 +135,7 @@ export function createApiClient({url, username, password}) {
 	}
 
 	async function fetchList({path, query}) {
-		const response = await doRequest(`${url}/${path}/query`, {
+		const response = await doRequest(`${url}/${path}/queryAll`, {
 			method: 'POST',
 			body: JSON.stringify(query),
 			headers: {
@@ -151,7 +151,7 @@ export function createApiClient({url, username, password}) {
 	}
 
 	async function fetchAuthenticateList({path, query}) {
-		const response = await doRequest(`${url}/${path}/query`, {
+		const response = await doRequest(`${url}/${path}/queryAll`, {
 			method: 'POST',
 			body: JSON.stringify(query),
 			headers: {
