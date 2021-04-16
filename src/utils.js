@@ -123,7 +123,7 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 		const templateCache = {};
 		const query = {queries: [{query: {name: name}}], offset: null};
 		const messageTemplate = await getTemplate(query, templateCache);
-		let body = Buffer.from(messageTemplate.body, 'base64').toString('utf8');
+		let body = Buffer.from(messageTemplate[JSON.stringify(query)].body, 'base64').toString('utf8');
 		const newBody = args ?
 			stringTemplate.replace(body, {link: args.link, rejectionReason: args, username: args.id, password: args.password}) :
 			stringTemplate.replace(body);
