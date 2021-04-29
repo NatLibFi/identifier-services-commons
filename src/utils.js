@@ -34,6 +34,9 @@ import moment from 'moment';
 import stringTemplate from 'string-template-js';
 import {URL} from 'url';
 
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
+
 const logger = createLogger();
 
 export function generateAuthorizationHeader(username, password = '') {
@@ -123,7 +126,12 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 		const templateCache = {};
 		const query = {queries: [{query: {name: name}}], offset: null};
 		const messageTemplate = await getTemplate(query, templateCache);
-		let body = Buffer.from(messageTemplate[JSON.stringify(query)].body, 'base64').toString('utf8');
+		const {document} = (new JSDOM('...')).window;
+		const div = document.createElement('div');
+		div.innerHTML = Buffer.from(messageTemplate[JSON.stringify(query)].body, 'base64').toString('utf8');
+		const tooltipElement = div.getElementsByClassName('ql-tooltip ql-hidden')[0];
+		div.removeChild(tooltipElement);
+		const body = div.innerHTML;
 		const newBody = args ?
 			stringTemplate.replace(body, {link: args.link, rejectionReason: args, username: args.id, password: args.password}) :
 			stringTemplate.replace(body);
