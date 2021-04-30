@@ -119,7 +119,7 @@ export function parseBoolean(value) {
 	return Boolean(Number(value));
 }
 
-export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
+export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL, ADMINISTRATORS_EMAIL}) {
 	return run();
 	async function run() {
 		const parseUrl = new URL(SMTP_URL);
@@ -128,7 +128,7 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 		const messageTemplate = await getTemplate(query, templateCache);
 		const {document} = (new JSDOM('...')).window;
 		const div = document.createElement('div');
-		div.innerHTML = Buffer.from(messageTemplate[JSON.stringify(query)].body, 'base64').toString('utf8');
+		div.innerHTML = Buffer.from(messageTemplate[JSON.stringify(query)].body, 'base64');
 		const tooltipElement = div.getElementsByClassName('ql-tooltip ql-hidden')[0];
 		div.removeChild(tooltipElement);
 		const body = div.innerHTML;
@@ -143,11 +143,11 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL}) {
 		});
 
 		const result = await transporter.sendMail({
-			from: 'test@test.com',
+			from: ADMINISTRATORS_EMAIL,
 			to: API_EMAIL,
-			replyTo: 'test@test.com',
-			subject: messageTemplate.subject,
-			text: newBody
+			replyTo: ADMINISTRATORS_EMAIL,
+			subject: messageTemplate[JSON.stringify(query)].subject,
+			html: newBody
 		});
 
 		if (result.error) {
