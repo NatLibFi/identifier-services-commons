@@ -132,8 +132,16 @@ export function sendEmail({name, args, getTemplate, SMTP_URL, API_EMAIL, ADMINIS
 		const tooltipElement = div.getElementsByClassName('ql-tooltip ql-hidden')[0];
 		div.removeChild(tooltipElement);
 		const body = div.innerHTML;
+		const argument = {
+			link: args.link,
+			identifier: args.identifier,
+			user: args.user,
+			rejectionReason: args,
+			username: args.id,
+			password: args.password
+		};
 		const newBody = args ?
-			stringTemplate.replace(body, {link: args.link, rejectionReason: args, username: args.id, password: args.password}) :
+			stringTemplate.replace(body, argument) :
 			stringTemplate.replace(body);
 
 		let transporter = nodemailer.createTransport({
