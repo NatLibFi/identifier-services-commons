@@ -185,7 +185,7 @@ export function createApiClient({url, username, password}) {
 			const response = await fetch(reqUrl, options);
 			if (response.status === HttpStatus.UNAUTHORIZED) {
 				const token = await getAuthToken();
-				authHeader = `Authorization: Bearer ${token}`;
+				authHeader = `Bearer ${token}`;
 				options.headers.Authorization = authHeader;
 
 				return fetch(reqUrl, options);
