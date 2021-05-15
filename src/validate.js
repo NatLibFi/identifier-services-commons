@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /**
  *
  * @licstart  The following is the entire license notice for the JavaScript code in this file.
@@ -14,19 +15,19 @@
  * License, or (at your option) any later version.
  *
  * identifier-services-ui is distributed in the hope that it will be useful,
-    console.log(values);
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    console.log(values);
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in this file.
- *
- */
+console.log(values);
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+console.log(values);
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Affero General Public License for more details.
+*
+* You should have received a copy of the GNU Affero General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+* @licend  The above is the entire license notice
+* for the JavaScript code in this file.
+*
+*/
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -85,21 +86,21 @@ function validate(values) {
 		}
 	});
 
-	if(values.langGroup) {
-		if(!/^\d{3}$/.test(values.langGroup)) {
-			errors.langGroup = 'Invalid Value'
+	if (values.langGroup) {
+		if (!/^\d{3}$/.test(values.langGroup)) {
+			errors.langGroup = 'Invalid Value';
 		}
 	}
 
-	if(values.rangeStart) {
-		if(!/^\d{1,7}$/.test(values.rangeStart)) {
-			errors.rangeStart = 'Invalid Value'
+	if (values.rangeStart) {
+		if (!/^\d{1,7}$/.test(values.rangeStart)) {
+			errors.rangeStart = 'Invalid Value';
 		}
 	}
 
-	if(values.rangeEnd) {
-		if(!/^\d{1,7}$/.test(values.rangeEnd)) {
-			errors.rangeEnd = 'Invalid Value'
+	if (values.rangeEnd) {
+		if (!/^\d{1,7}$/.test(values.rangeEnd)) {
+			errors.rangeEnd = 'Invalid Value';
 		}
 	}
 
@@ -136,22 +137,22 @@ function validate(values) {
 	if (!formatDetails.printFormat) {
 		errors.formatDetails.printFormat = 'Required';
 	}
-	
+
 	if (formatDetails.run && !/^[0-9]*$/gm.test(formatDetails.run)) {
-		errors.formatDetails.run = 'Must be a number [0-9]'
+		errors.formatDetails.run = 'Must be a number [0-9]';
 	}
 
 	if (publicationDetails.frequency) {
 		if (!publicationDetails.frequency.currentYear) {
-		  errors.publicationDetails.frequency.currentYear = 'Required';
+			errors.publicationDetails.frequency.currentYear = 'Required';
 		} else if (!/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.frequency.currentYear)) {
-		  errors.publicationDetails.frequency.currentYear = 'Must be a number [0-9] or Roman';
+			errors.publicationDetails.frequency.currentYear = 'Must be a number [0-9] or Roman';
 		}
-	
+
 		if (!publicationDetails.frequency.nextYear) {
-		  errors.publicationDetails.frequency.nextYear = 'Required';
+			errors.publicationDetails.frequency.nextYear = 'Required';
 		} else if (!/^([0-9]|([MDCLXVI]))*$/gm.test(publicationDetails.frequency.nextYear)) {
-		  errors.publicationDetails.frequency.nextYear = 'Must be a number [0-9] or Roman';
+			errors.publicationDetails.frequency.nextYear = 'Must be a number [0-9] or Roman';
 		}
 	} else {
 		errors.publicationDetails.frequency.nextYear = 'Required';
@@ -161,6 +162,7 @@ function validate(values) {
 	if (previousPublication.lastYear && !/^([0-9]|([MDCLXVI]))*$/gm.test(previousPublication.lastYear)) {
 		errors.previousPublication.lastYear = 'Must be a number [0-9] or Roman';
 	}
+
 	if (previousPublication.lastNumber && !/^([0-9]|([MDCLXVI]))*$/gm.test(previousPublication.lastNumber)) {
 		errors.previousPublication.lastNumber = 'Must be a number [0-9] or Roman';
 	}
@@ -189,12 +191,9 @@ function validate(values) {
 		errors.postalAddress.zip = 'Required';
 	}
 
-
-
-
-	if (!/^[a-zA-ZÀ-ÿ\s@~`!@#$%^&*()_=+\\';:"\/?>.<,-]{3,256}$/i.test(values.name)) {
-		errors.name = 'Name should contains only 3-256 alphabets';
-	}
+	// If (!/^[a-zA-ZÀ-ÿ\s@~`!@#$%^&*()_=+\\';:"\/?>.<,-]{3,256}$/i.test(values.name)) {
+	// 	errors.name = 'Name should contains only 3-256 alphabets';
+	// }
 
 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.publisherEmail)) {
 		errors.publisherEmail = 'Invalid e-mail address';
@@ -269,10 +268,10 @@ function validate(values) {
 		errors.type = 'Required';
 	}
 
-	if (issnFormatDetails === null || issnFormatDetails.length===0) {
+	if (issnFormatDetails === null || issnFormatDetails.length === 0) {
 		errors.issnFormatDetails = 'Required';
-	} else if (issnFormatDetails.length>0) {
-		if(issnFormatDetails.some(item => item.value === 'online') && !formatDetails.url) {
+	} else if (issnFormatDetails.length > 0) {
+		if (issnFormatDetails.some(item => item.value === 'online') && !formatDetails.url) {
 			errors.formatDetails.url = 'Required';
 		}
 	}
