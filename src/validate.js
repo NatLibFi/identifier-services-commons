@@ -104,6 +104,12 @@ function validate(values) {
 		}
 	}
 
+	if (values.firstNumber) {
+		if (/"/.test(values.firstNumber)) {
+			errors.firstNumber = 'Invalid Value';
+		}
+	}
+
 	if (!values.selectUniversity) {
 		errors.selectUniversity = 'Required';
 	}
@@ -129,13 +135,23 @@ function validate(values) {
 	}
 
 	if (!formatDetails.fileFormat) {
-		errors.formatDetails.fileFormat = 'Required';
+		if (!formatDetails.otherFileFormat) {
+			errors.formatDetails.fileFormat = 'Required';
+		}
 	} else if (formatDetails.fileFormat.value === '') {
-		errors.formatDetails.fileFormat = 'Required';
+		if (!formatDetails.otherFileFormat) {
+			errors.formatDetails.fileFormat = 'Required';
+		}
 	}
 
 	if (!formatDetails.printFormat) {
-		errors.formatDetails.printFormat = 'Required';
+		if (!formatDetails.otherPrintFormat) {
+			errors.formatDetails.printFormat = 'Required';
+		}
+	} else if (formatDetails.printFormat.value === '') {
+		if (!formatDetails.otherPrintFormat) {
+			errors.formatDetails.printFormat = 'Required';
+		}
 	}
 
 	if (formatDetails.run && !/^[0-9]*$/gm.test(formatDetails.run)) {
